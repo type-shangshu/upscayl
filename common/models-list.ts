@@ -20,9 +20,6 @@ export const MODELS = {
   "digital-art-4x": {
     id: "digital-art-4x",
   },
-  "tinysr-x4": {
-    id: "tinysr-x4",
-  },
 };
 
 export type ModelId = keyof typeof MODELS;
