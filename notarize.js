@@ -7,6 +7,11 @@ exports.default = async function notarizing(context) {
     return;
   }
 
+  if (!process.env.APPLEID || !process.env.APPLEIDPASS || !process.env.TEAMID) {
+    console.log("Skipping macOS notarization because APPLEID, APPLEIDPASS, or TEAMID is not configured.");
+    return;
+  }
+
   const appName = context.packager.appInfo.productFilename;
 
   return await notarize({

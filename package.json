@@ -48,22 +48,25 @@
     "dist:deb": "tsc && npm run build && cross-env DEBUG=* electron-builder build -l deb",
     "dist:rpm": "tsc && npm run build && cross-env DEBUG=* electron-builder build -l rpm",
     "dist:zip": "tsc && npm run build && cross-env DEBUG=* electron-builder build -l zip",
-    "dist:mac-zip": "tsc && npm run build && electron-builder build -m --universal",
+    "dist:mac-zip": "tsc && npm run build && electron-builder build -m --arm64",
     "dist:dmg": "tsc && npm run build && electron-builder build -m dmg",
     "dist:msi": "tsc && npm run build && cross-env DEBUG=* electron-builder build -w nsis",
     "dist:pkg": "tsc && npm run build && cross-env DEBUG=* electron-builder build -m pkg",
-    "dist:mac": "tsc && npm run build && electron-builder --mac --universal",
+    "dist:mac": "tsc && npm run build && electron-builder --mac --arm64",
     "dist:mac-dev": "tsc && npm run build && electron-builder --mac --arm64 -c mac-dev.json",
     "dist:mac-arm64": "tsc && npm run build && electron-builder --mac --arm64",
-    "dist:mas": "npm run enable-store && tsc && npm run build && electron-builder --mac mas --universal -c mas.json && npm run disable-store",
-    "dist:mas-dev": "npm run enable-store && tsc && npm run build && electron-builder --mac mas-dev --universal -c mas-dev.json && npm run disable-store",
+    "dist:linux-x64": "tsc && npm run build && electron-builder --linux --x64",
+    "dist:linux-arm64": "tsc && npm run build && electron-builder --linux --arm64",
+    "dist:win-x64": "tsc && npm run build && electron-builder --win --x64",
+    "dist:win-arm64": "tsc && npm run build && electron-builder --win --arm64",
+    "dist:mas": "npm run enable-store && tsc && npm run build && electron-builder --mac mas --arm64 -c mas.json && npm run disable-store",
+    "dist:mas-dev": "npm run enable-store && tsc && npm run build && electron-builder --mac mas-dev --arm64 -c mas-dev.json && npm run disable-store",
     "dist:win": "tsc && npm run build && electron-builder --win",
     "dist:linux": "tsc && npm run build && electron-builder --linux",
     "publish-app": "tsc && npm run build && electron-builder -wlm --publish always",
     "publish-linux-app": "tsc && npm run build && electron-builder -l --publish always",
     "publish-win-app": "tsc && npm run build && electron-builder -w --publish always",
-    "publish-mac-universal-app": "tsc && npm run build && electron-builder --mac --universal --publish always",
-    "publish-mac-app": "tsc && npm run build && electron-builder --mac --x64 --publish always",
+    "publish-mac-app": "tsc && npm run build && electron-builder --mac --arm64 --publish always",
     "publish-mac-arm-app": "tsc && npm run build && electron-builder --mac --arm64 --publish always",
     "dist:appstore": "CSC_KEY_PASSWORD=$PASSWORD CSC_LINK=$(openssl base64 -in $CERTIFICATE_PATH) npm run dist:mac-mas",
     "enable-store": "sed -i '' -e 's/APP_STORE_BUILD: false,/APP_STORE_BUILD: true,/' common/feature-flags.ts",
@@ -73,7 +76,7 @@
   "build": {
     "productName": "Upscayl",
     "appId": "org.upscayl.Upscayl",
-    "artifactName": "${name}-${version}-${os}.${ext}",
+    "artifactName": "${name}-${version}-${os}-${arch}.${ext}",
     "afterSign": "./notarize.js",
     "asar": true,
     "asarUnpack": [
@@ -81,7 +84,7 @@
     ],
     "extraFiles": [
       {
-        "from": "resources/${os}/bin",
+        "from": "resources/${os}-${arch}/bin",
         "to": "resources/bin",
         "filter": [
           "**/*"
@@ -120,7 +123,7 @@
         {
           "target": "mas",
           "arch": [
-            "universal"
+            "arm64"
           ]
         }
       ]
@@ -140,13 +143,13 @@
         {
           "target": "dmg",
           "arch": [
-            "universal"
+            "arm64"
           ]
         },
         {
           "target": "zip",
           "arch": [
-            "universal"
+            "arm64"
           ]
         }
       ]
