@@ -54,7 +54,9 @@ jobs:
           sudo apt update
           sudo apt install -y elfutils rpm
           npm ci
-        
+      - name: Clean electron-builder cache
+        run: rm -rf  ~/.cache/electron-builder
+
       - name: Build Linux arm64 installers
         run: npm run dist:linux-arm64
         env: 
