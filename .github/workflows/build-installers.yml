@@ -26,7 +26,7 @@ jobs:
       - name: Build Linux x64 installers
         run: npm run dist:linux-x64
         env: 
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
       - uses: actions/upload-artifact@v4
         with:
@@ -58,7 +58,7 @@ jobs:
       - name: Build Linux arm64 installers
         run: npm run dist:linux-arm64
         env: 
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
       - uses: actions/upload-artifact@v4
         with:
@@ -87,7 +87,7 @@ jobs:
       - name: Build Windows x64 installers
         run: npm run dist:win-x64
         env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
       - uses: actions/upload-artifact@v4
         with:
@@ -114,7 +114,7 @@ jobs:
       - name: Build Windows arm64 installers
         run: npm run dist:win-arm64
         env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
       - uses: actions/upload-artifact@v4
         with:
@@ -129,7 +129,7 @@ jobs:
     runs-on: macos-15
     env:
       CSC_IDENTITY_AUTO_DISCOVERY: "false"
-      GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
     steps:
       - uses: actions/checkout@v4
 
@@ -144,7 +144,7 @@ jobs:
       - name: Build macOS arm64 installers
         run: npm run dist:mac-arm64
         env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
       - uses: actions/upload-artifact@v4
         with:
